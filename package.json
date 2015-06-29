@@ -1,5 +1,5 @@
 {
-  "name": "react-native-recorder",
+  "name": "react-native-screcorder",
   "version": "0.0.1",
   "description": "A <Recorder /> element for react-native",
   "main": "recorder.ios.js",
@@ -15,6 +15,6 @@
   "author": {
     "name": "Maxime Mezrahi",
     "email": "maxime.mezrahi@gmail.com",
-    "url": "https://github.com/maxs15
+    "url": "https://github.com/maxs15"
   }
 }

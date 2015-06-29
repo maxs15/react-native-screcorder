@@ -1,4 +1,4 @@
-# react-native-recorder
+# react-native-screcorder
 
 A react native component to capture pictures and record Video with Vine-like tap to record, animatable filters, slow motion, segments editing.  
 Based on this awesome library [SCRecorder](https://github.com/rFlex/SCRecorder).
@@ -16,7 +16,7 @@ Based on this awesome library [SCRecorder](https://github.com/rFlex/SCRecorder).
 
 ```javascript
 var React     = require('react-native');
-var Recorder  = require('react-native-recorder');
+var Recorder  = require('react-native-screcorder');
 
 var {
   View,
