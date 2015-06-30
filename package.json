@@ -1,7 +1,7 @@
 {
   "name": "react-native-screcorder",
-  "version": "0.0.1",
-  "description": "A <Recorder /> element for react-native",
+  "version": "0.0.2",
+  "description": "A Video recorder component for react-native",
   "main": "recorder.ios.js",
   "keywords": [
     "react-component",
@@ -12,6 +12,10 @@
     "video",
     "capture"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/maxs15/react-native-screcorder.git"
+  },
   "author": {
     "name": "Maxime Mezrahi",
     "email": "maxime.mezrahi@gmail.com",
