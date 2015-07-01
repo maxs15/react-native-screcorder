@@ -42,7 +42,6 @@ var Record = React.createClass({
   },
 
   capture: function() {
-    console.log('asking for capture!');
     this.refs.recorder.capture((err, url) => {
       // Playing with the picture
     });
@@ -147,6 +146,9 @@ Will call the specified method when a new segment has been recorded
 ## Component methods
 
 You can access component methods by adding a `ref` (ie. `ref="recorder"`) prop to your `<Recorder>` element, then you can use `this.refs.recorder.record()`, etc. inside your component.
+
+#### `capture(callback)`
+Capture a picture
 
 #### `record()`
 Start the recording of a new segment
