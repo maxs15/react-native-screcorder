@@ -67,7 +67,7 @@ RCT_EXPORT_METHOD(removeLastSegment)
     [_recorderView removeLastSegment];
 }
 
-RCT_EXPORT_METHOD(removeAllSegment)
+RCT_EXPORT_METHOD(removeAllSegments)
 {
     [_recorderView removeAllSegments];
 }
