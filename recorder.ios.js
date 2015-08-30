@@ -1,14 +1,12 @@
-var React = require('React');
-var DeviceEventEmitter = require('RCTDeviceEventEmitter');
-var NativeModules = require('NativeModules');
-var ReactNativeViewAttributes = require('ReactNativeViewAttributes');
-var StyleSheet = require('StyleSheet');
-var View = require('View');
-var createReactNativeComponentClass = require('createReactNativeComponentClass');
-var PropTypes = require('ReactPropTypes');
-var StyleSheetPropType = require('StyleSheetPropType');
-var NativeMethodsMixin = require('NativeMethodsMixin');
-var merge = require('merge');
+var React = require('react-native');
+var {
+  PropTypes,
+  StyleSheet,
+  requireNativeComponent,
+  NativeModules,
+  View,
+  merge
+} = React;
 
 /******* ENUM **********/
 
@@ -31,14 +29,11 @@ var styles = StyleSheet.create({
 /******* RECORDER COMPONENT **********/
 
 var Recorder = React.createClass({
+
   propTypes: {
-  },
-
-  mixins: [NativeMethodsMixin],
-
-  viewConfig: {
-    uiViewClassName: 'UIView',
-    validAttributes: ReactNativeViewAttributes.UIView
+    config: PropTypes.object,
+    device: PropTypes.string,
+    onNewSegment: PropTypes.function
   },
 
   /*** PUBLIC METHODS ***/
@@ -136,13 +131,7 @@ var Recorder = React.createClass({
 
 });
 
-var RNRecorder = createReactNativeComponentClass({
-  validAttributes: merge(ReactNativeViewAttributes.UIView, {
-    config: true,
-    device: true
-  }),
-  uiViewClassName: 'RNRecorder',
-});
+var RNRecorder = requireNativeComponent('RNRecorder', Recorder);
 
 Recorder.constants = constants;
 
