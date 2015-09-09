@@ -4,9 +4,10 @@ var {
   StyleSheet,
   requireNativeComponent,
   NativeModules,
-  View
+  View,
+  merge
 } = React;
-var merge = require('merge');
+merge = merge || require('merge');
 
 /******* ENUM **********/
 
