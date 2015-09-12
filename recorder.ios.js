@@ -7,6 +7,7 @@ var {
   View,
   merge
 } = React;
+merge = merge || require('merge');
 
 /******* ENUM **********/
 
