@@ -12,82 +12,8 @@ Based on this awesome library [SCRecorder](https://github.com/rFlex/SCRecorder).
 5. Click `RNRecorder.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). Look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React` - mark both as `recursive`.
 5. Run your project (`Cmd+R`)
 
-## Usage
-
-```javascript
-var React     = require('react-native');
-var Recorder  = require('react-native-screcorder');
-
-var {
-  View,
-  Image
-} = React;
-
-var styles    = require('./style');
-var Button    = require('Button');
-
-var Record = React.createClass({
-
-  getInitialState: function() {
-    return {
-      device: "front",
-      recording: false,
-      segment: null
-    }
-  },
-
-  record: function() {
-    this.refs.recorder.record();
-    this.setState({recording: true});
-  },
-
-  capture: function() {
-    this.refs.recorder.capture((err, url) => {
-      // Playing with the picture
-    });
-  },
-
-  pause: function() {
-    this.refs.recorder.pause();
-    this.setState({recording: false});
-  },
-
-  save: function() {
-    this.refs.recorder.save((err, url) => {
-      // Playing with the generated video
-    });
-  },
-
-  setDevice: function() {
-    var device = (this.state.device == "front") ? "back" : "front";
-    this.setState({device: device});
-  },
-
-  onNewSegment: function(segment) {
-    this.setState({segment: segment});
-  },
-
-  render: function() {
-    return (
-      <Recorder
-        ref="recorder"
-        config={this.state.config}
-        device={this.state.device}
-        onNewSegment={this.onNewSegment}
-        style={styles.recorder.wrapper}>
-        <Button onPressOut={this.setDevice} style={styles.recorder.device}></Button>
-        <View style={styles.recorder.controls}>
-          <Button onPressIn={this.record} onPressOut={this.pause}></Button>
-          <Button onPressOut={this.save icon="heart"></Button>
-        </View>
-      </Recorder>
-    );
-  }
-
-});
-
-AppRegistry.registerComponent('App', () => Record);
-```
+## Example
+Check [index.ios.js](https://github.com/maxs15/react-native-screcorder/blob/master/Example/index.ios.js) in the Example folder.
 
 ## Properties
 
