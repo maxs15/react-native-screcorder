@@ -37,10 +37,18 @@ var Recorder = React.createClass({
     onNewSegment: PropTypes.function
   },
 
+  getInitialState() {
+    return {
+      recording: false
+    };
+  },
+
   /*** PUBLIC METHODS ***/
 
   // Start recording of the current session
   record() {
+    if (this.state.recording) return;
+    this.state.recording = true;
     NativeModules.RNRecorderManager.record();
   },
 
@@ -51,10 +59,11 @@ var Recorder = React.createClass({
 
   // Pause recording of the current session
   pause() {
+    if (!this.state.recording) return;
 
     var onNewSegment = this.props.onNewSegment || function() {};
-
     NativeModules.RNRecorderManager.pause(onNewSegment);
+    this.state.recording = false;
   },
 
   // Save the recording
