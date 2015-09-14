@@ -29,6 +29,8 @@
 @implementation SCRecorderToolsView
 
 static char *ContextAdjustingFocus = "AdjustingFocus";
+static char *ContextAdjustingExposure = "AdjustingExposure";
+static char *ContextDidChangeDevice = "DidChangeDevice";
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -79,6 +81,7 @@ static char *ContextAdjustingFocus = "AdjustingFocus";
 }
 
 - (void)showFocusAnimation {
+    [self adjustFocusView];
     self.cameraFocusTargetView.hidden = NO;
     [self.cameraFocusTargetView startTargeting];
 }
@@ -94,21 +97,38 @@ static char *ContextAdjustingFocus = "AdjustingFocus";
 }
 
 - (void)adjustFocusView {
-    CGPoint currentFocusPoint = [self.recorder convertPointOfInterestToViewCoordinates:self.recorder.focusPointOfInterest];
-    currentFocusPoint = [self convertPoint:currentFocusPoint fromView:self.recorder.previewView];
-    self.cameraFocusTargetView.center = currentFocusPoint;
+    CGPoint currentFocusPoint = CGPointMake(0.5, 0.5);
+    
+    if (self.recorder.focusSupported) {
+        currentFocusPoint = self.recorder.focusPointOfInterest;
+    } else if (self.recorder.exposureSupported) {
+        currentFocusPoint = self.recorder.exposurePointOfInterest;
+    }
+    
+    CGPoint viewPoint = [self.recorder convertPointOfInterestToViewCoordinates:currentFocusPoint];
+    viewPoint = [self convertPoint:viewPoint fromView:self.recorder.previewView];
+    self.cameraFocusTargetView.center = viewPoint;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == ContextAdjustingFocus) {
         if (self.showsFocusAnimationAutomatically) {
             if (self.recorder.isAdjustingFocus) {
-                [self adjustFocusView];
                 [self showFocusAnimation];
             } else {
                 [self hideFocusAnimation];
             }
         }
+    } else if (context == ContextAdjustingExposure) {
+        if (self.showsFocusAnimationAutomatically && !self.recorder.focusSupported) {
+            if (self.recorder.isAdjustingExposure) {
+                [self showFocusAnimation];
+            } else {
+                [self hideFocusAnimation];
+            }
+        }
+    } else if (context == ContextDidChangeDevice) {
+        [self hideFocusAnimation];
     }
 }
 
@@ -116,12 +136,9 @@ static char *ContextAdjustingFocus = "AdjustingFocus";
 - (void)tapToAutoFocus:(UIGestureRecognizer *)gestureRecognizer {
     SCRecorder *recorder = self.recorder;
     
-    if (recorder.focusSupported) {
-        CGPoint tapPoint = [gestureRecognizer locationInView:recorder.previewView];
-        CGPoint convertedFocusPoint = [recorder convertToPointOfInterestFromViewCoordinates:tapPoint];
-        self.cameraFocusTargetView.center = tapPoint;
-        [recorder autoFocusAtPoint:convertedFocusPoint];
-    }
+    CGPoint tapPoint = [gestureRecognizer locationInView:recorder.previewView];
+    CGPoint convertedFocusPoint = [recorder convertToPointOfInterestFromViewCoordinates:tapPoint];
+    [recorder autoFocusAtPoint:convertedFocusPoint];
 }
 
 // Change to continuous auto focus. The camera will constantly focus at the point choosen.
@@ -207,12 +224,16 @@ static char *ContextAdjustingFocus = "AdjustingFocus";
     
     if (oldRecorder != nil) {
         [oldRecorder removeObserver:self forKeyPath:@"isAdjustingFocus"];
+        [oldRecorder removeObserver:self forKeyPath:@"isAdjustingExposure"];
+        [oldRecorder removeObserver:self forKeyPath:@"device"];
     }
     
     _recorder = recorder;
     
     if (recorder != nil) {
         [recorder addObserver:self forKeyPath:@"isAdjustingFocus" options:NSKeyValueObservingOptionNew context:ContextAdjustingFocus];
+        [recorder addObserver:self forKeyPath:@"isAdjustingExposure" options:NSKeyValueObservingOptionNew context:ContextAdjustingExposure];
+        [recorder addObserver:self forKeyPath:@"device"  options:NSKeyValueObservingOptionNew context:ContextDidChangeDevice];
     }
 }
 

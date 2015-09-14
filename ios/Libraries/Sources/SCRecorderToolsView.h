@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SCRecorder.h"
 
+//typedef enum : NSUInteger {
+//    SCRecorderToolsViewShowFocusModeNever,
+//    SCRecorderToolsViewShowFocusModeOnlyOnSubjectChanged,
+//    SCRecorderToolsViewShowFocusModeAlways
+//} SCRecorderToolsViewShowFocusMode;
+
 @class SCRecorder;
 
 @interface SCRecorderToolsView : UIView
@@ -16,17 +22,17 @@
 /**
  The instance of the SCRecorder to use.
  */
-@property (strong, nonatomic) SCRecorder *recorder;
+@property (strong, nonatomic) SCRecorder *__nullable recorder;
 
 /**
  The outside image used when focusing.
  */
-@property (strong, nonatomic) UIImage *outsideFocusTargetImage;
+@property (strong, nonatomic) UIImage *__nullable outsideFocusTargetImage;
 
 /**
  The inside image used when focusing.
  */
-@property (strong, nonatomic) UIImage *insideFocusTargetImage;
+@property (strong, nonatomic) UIImage *__nullable insideFocusTargetImage;
 
 /**
  The size of the focus target.
@@ -45,7 +51,6 @@
  */
 @property (assign, nonatomic) CGFloat maxZoomFactor;
 
-
 /**
  Whether the tap to focus should be enabled.
  */
@@ -61,12 +66,16 @@
  */
 @property (assign, nonatomic) BOOL pinchToZoomEnabled;
 
-/**
- Whether the SCRecorderToolsView should show the focus animation automatically
- when the focusing state changes. If set to NO, you will have to call
- "showFocusAnimation" and "hideFocusAnimation" yourself.
- */
 @property (assign, nonatomic) BOOL showsFocusAnimationAutomatically;
+
+///**
+// When the SCRecorderToolsView should show the focus animation
+// when the focusing state changes. If set to Never, you will have to call
+// "showFocusAnimation" and "hideFocusAnimation" yourself.
+// 
+// Default is OnlyOnSubjectChange
+// */
+//@property (assign, nonatomic) SCRecorderToolsViewShowFocusMode showFocusMode;
 
 /**
  Manually show the focus animation.
