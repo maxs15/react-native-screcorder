@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "react-native": "^0.10.1",
-    "react-native-screcorder": "^0.0.5",
+    "react-native-screcorder": "^0.0.7",
     "react-native-video": "^0.6.0"
   }
 }
