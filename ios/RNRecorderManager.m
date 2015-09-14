@@ -52,12 +52,14 @@ RCT_EXPORT_METHOD(pause:(RCTResponseSenderBlock)callback)
         
         SCRecordSessionSegment* ls = [_recorderView lastSegment];
         
-        NSString *thumbnail = [_recorderView saveImage:ls.thumbnail];
-        NSString *url = [ls.url relativeString];
-        float duration = CMTimeGetSeconds(ls.duration);
-        
-        NSDictionary *props = @{@"url": url, @"thumbnail":thumbnail, @"duration":@(duration)};
-        callback(@[props]);
+        if (ls != nil) {
+            NSString *thumbnail = [_recorderView saveImage:ls.thumbnail];
+            NSString *url = [ls.url relativeString];
+            float duration = CMTimeGetSeconds(ls.duration);
+
+            NSDictionary *props = @{@"url": url, @"thumbnail":thumbnail, @"duration":@(duration)};
+            callback(@[props]);
+        }
     
     }];
 }
