@@ -20,5 +20,8 @@
     "name": "Maxime Mezrahi",
     "email": "maxime.mezrahi@gmail.com",
     "url": "https://github.com/maxs15"
+  },
+  "dependencies": {
+    "object-assign": "^4.0.1"
   }
 }
