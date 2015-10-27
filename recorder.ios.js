@@ -1,13 +1,13 @@
 var React = require('react-native');
+var assign = require('object-assign');
+
 var {
   PropTypes,
   StyleSheet,
   requireNativeComponent,
   NativeModules,
   View,
-  merge
 } = React;
-merge = merge || require('merge');
 
 /******* ENUM **********/
 
@@ -34,7 +34,7 @@ var Recorder = React.createClass({
   propTypes: {
     config: PropTypes.object,
     device: PropTypes.string,
-    onNewSegment: PropTypes.function
+    onNewSegment: PropTypes.func,
   },
 
   getInitialState() {
@@ -91,7 +91,7 @@ var Recorder = React.createClass({
   render() {
 
 
-    var config = merge({
+    var config = assign({
       autoSetVideoOrientation: false,
       flashMode: constants.SCFlashModeOff,
 
@@ -127,7 +127,7 @@ var Recorder = React.createClass({
 
     },this.props.config);
 
-    var nativeProps = merge(this.props, {
+    var nativeProps = assign({}, this.props, {
       config: config,
       device: this.props.device || "front"
     });
