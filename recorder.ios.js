@@ -15,7 +15,8 @@ var constants = {
   // Flash enum
   SCFlashModeOff: 0,
   SCFlashModeOn: 1,
-  SCFlashModeAuto: 2
+  SCFlashModeAuto: 2,
+  SCFlashModeLight: 3
 };
 
 /******* STYLES **********/
