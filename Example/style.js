@@ -30,6 +30,7 @@ module.exports = StyleSheet.create({
 		bottom: 50,
 		width: screen.width,
 		flexDirection: 'row',
+		flexWrap: "wrap",
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		backgroundColor: 'transparent',
@@ -40,7 +41,8 @@ module.exports = StyleSheet.create({
 		backgroundColor: "white",
 		padding: 20,
 		opacity: 0.8,
-		borderRadius: 5
+		borderRadius: 5,
+		marginBottom: 10
 	},
 
 	infoBtn: {

@@ -34,7 +34,10 @@ var Record = React.createClass({
       barPosition: new Animated.Value(0),
       currentDuration: 0,
       maxDuration: 3000,
-      limitReached: false
+      limitReached: false,
+      config: {
+        flashMode: Recorder.constants.SCFlashModeOff
+      }
     }
   },
 
@@ -120,6 +123,15 @@ var Record = React.createClass({
     this.setState({device: device});
   },
 
+  toggleFlash: function() {
+    if (this.state.config.flashMode == Recorder.constants.SCFlashModeOff) {
+      this.state.config.flashMode = Recorder.constants.SCFlashModeLight;
+    } else {
+      this.state.config.flashMode = Recorder.constants.SCFlashModeOff;
+    }
+    this.setState({config: this.state.config});
+  },
+
   /*
    *  EVENTS
    */
@@ -175,6 +187,12 @@ var Record = React.createClass({
           </TouchableOpacity>
           <TouchableOpacity onPress={this.preview} style={styles.controlBtn}>
             <Text>Preview</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.toggleFlash} style={styles.controlBtn}>
+            <Text>Flash</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.setDevice} style={styles.controlBtn}>
+            <Text>Switch</Text>
           </TouchableOpacity>
         </View>
       </Recorder>
