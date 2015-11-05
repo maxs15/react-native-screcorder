@@ -34,7 +34,7 @@ var Recorder = React.createClass({
   propTypes: {
     config: PropTypes.object,
     device: PropTypes.string,
-    onNewSegment: PropTypes.function
+    onNewSegment: PropTypes.func
   },
 
   getInitialState() {
