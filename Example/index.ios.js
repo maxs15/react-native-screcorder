@@ -36,7 +36,11 @@ var Record = React.createClass({
       maxDuration: 3000,
       limitReached: false,
       config: {
-        flashMode: Recorder.constants.SCFlashModeOff
+        flashMode: Recorder.constants.SCFlashModeOff,
+        video: {
+          enabled: true,
+          format: 'MPEG4',
+        },
       }
     }
   },
