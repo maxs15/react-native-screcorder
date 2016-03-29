@@ -128,7 +128,7 @@ var Recorder = React.createClass({
 
     },this.props.config);
 
-    var nativeProps = merge(this.props, {
+    var nativeProps = merge({}, this.props, {
       config: config,
       device: this.props.device || "front"
     });
