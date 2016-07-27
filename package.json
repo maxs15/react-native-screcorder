@@ -21,5 +21,7 @@
     "email": "maxime.mezrahi@gmail.com",
     "url": "https://github.com/maxs15"
   },
-  "dependencies": {}
+  "dependencies": {
+    "merge": "^1.2.0"
+  }
 }

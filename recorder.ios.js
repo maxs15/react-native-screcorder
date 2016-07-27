@@ -1,27 +1,22 @@
-var React = require('react-native');
-var {
-  PropTypes,
+import React, { Component, PropTypes } from 'react';
+import {
   StyleSheet,
   requireNativeComponent,
   NativeModules,
   View,
-  merge
-} = React;
-merge = merge || require('merge');
+} from 'react-native';
+import merge from 'merge';
 
-/******* ENUM **********/
-
-var constants = {
-  // Flash enum
-  SCFlashModeOff: 0,
-  SCFlashModeOn: 1,
-  SCFlashModeAuto: 2,
-  SCFlashModeLight: 3
-};
-
+const constants = {
+    // Flash enum
+    SCFlashModeOff: 0,
+    SCFlashModeOn: 1,
+    SCFlashModeAuto: 2,
+    SCFlashModeLight: 3
+} 
 /******* STYLES **********/
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: "transparent"
@@ -30,33 +25,37 @@ var styles = StyleSheet.create({
 
 /******* RECORDER COMPONENT **********/
 
-var Recorder = React.createClass({
+export default class Recorder extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      recording: false
+    }
+  }
 
-  propTypes: {
+  static constants = constants;
+
+  static propTypes = {
     config: PropTypes.object,
     device: PropTypes.string,
     onNewSegment: PropTypes.func
-  },
-
-  getInitialState() {
-    return {
-      recording: false
-    };
-  },
+  }
 
   /*** PUBLIC METHODS ***/
 
   // Start recording of the current session
   record() {
     if (this.state.recording) return;
-    this.state.recording = true;
+    this.setState({ 
+      recording: true
+    });
     NativeModules.RNRecorderManager.record();
-  },
+  }
 
   // Capture a picture
   capture(callback) {
     NativeModules.RNRecorderManager.capture(callback);
-  },
+  }
 
   // Pause recording of the current session
   pause() {
@@ -64,35 +63,35 @@ var Recorder = React.createClass({
 
     var onNewSegment = this.props.onNewSegment || function() {};
     NativeModules.RNRecorderManager.pause(onNewSegment);
-    this.state.recording = false;
-  },
+    this.setState({
+      recording: false
+    })
+  }
 
   // Save the recording
   save(callback) {
     NativeModules.RNRecorderManager.save(callback);
-  },
+  }
 
   // Remove last segment of the session
   removeLastSegment() {
     NativeModules.RNRecorderManager.removeLastSegment();
-  },
+  }
 
   // Remove all segments of the session
   removeAllSegments() {
     NativeModules.RNRecorderManager.removeAllSegments();
-  },
+  }
 
   // Remove segment at the specified index
   removeSegmentAtIndex(index) {
     NativeModules.RNRecorderManager.removeSegmentAtIndex(index);
-  },
+  }
 
   /*** RENDER ***/
 
   render() {
-
-
-    var config = merge({
+    const config = merge({
       autoSetVideoOrientation: false,
       flashMode: constants.SCFlashModeOff,
 
@@ -126,9 +125,9 @@ var Recorder = React.createClass({
         quality: "HighestQuality" // HighestQuality || MediumQuality || LowQuality
       }
 
-    },this.props.config);
+    }, this.props.config);
 
-    var nativeProps = merge({}, this.props, {
+    const nativeProps = merge({}, this.props, {
       config: config,
       device: this.props.device || "front"
     });
@@ -139,11 +138,8 @@ var Recorder = React.createClass({
       </RNRecorder>
     );
   }
+}
 
-});
+const RNRecorder = requireNativeComponent('RNRecorder', Recorder);
 
-var RNRecorder = requireNativeComponent('RNRecorder', Recorder);
 
-Recorder.constants = constants;
-
-module.exports = Recorder;
