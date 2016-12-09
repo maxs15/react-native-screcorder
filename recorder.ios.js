@@ -13,7 +13,7 @@ const constants = {
     SCFlashModeOn: 1,
     SCFlashModeAuto: 2,
     SCFlashModeLight: 3
-} 
+}
 /******* STYLES **********/
 
 const styles = StyleSheet.create({
@@ -38,6 +38,7 @@ export default class Recorder extends Component {
   static propTypes = {
     config: PropTypes.object,
     device: PropTypes.string,
+    flashMode: PropTypes.number,
     onNewSegment: PropTypes.func
   }
 
@@ -46,7 +47,7 @@ export default class Recorder extends Component {
   // Start recording of the current session
   record() {
     if (this.state.recording) return;
-    this.setState({ 
+    this.setState({
       recording: true
     });
     NativeModules.RNRecorderManager.record();
@@ -93,8 +94,6 @@ export default class Recorder extends Component {
   render() {
     const config = merge({
       autoSetVideoOrientation: false,
-      flashMode: constants.SCFlashModeOff,
-
       video: {
         enabled: true,
         bitrate: 2000000, // 2Mbit/s
@@ -129,7 +128,8 @@ export default class Recorder extends Component {
 
     const nativeProps = merge({}, this.props, {
       config: config,
-      device: this.props.device || "front"
+      device: this.props.device || "front",
+      flashMode: this.props.flashMode || constants.SCFlashModeOff,
     });
 
     return (
@@ -141,5 +141,3 @@ export default class Recorder extends Component {
 }
 
 const RNRecorder = requireNativeComponent('RNRecorder', Recorder);
-
-

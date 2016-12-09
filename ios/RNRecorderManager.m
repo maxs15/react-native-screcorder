@@ -13,6 +13,7 @@
 RCT_EXPORT_MODULE();
 RCT_EXPORT_VIEW_PROPERTY(config, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(device, NSString);
+RCT_EXPORT_VIEW_PROPERTY(flashMode, NSInteger);
 
 @synthesize bridge = _bridge;
 
@@ -49,9 +50,9 @@ RCT_EXPORT_METHOD(capture:(RCTResponseSenderBlock)callback)
 RCT_EXPORT_METHOD(pause:(RCTResponseSenderBlock)callback)
 {
     [_recorderView pause:^{
-        
+
         SCRecordSessionSegment* ls = [_recorderView lastSegment];
-        
+
         if (ls != nil) {
             NSString *thumbnail = [_recorderView saveImage:ls.thumbnail];
             NSString *url = [ls.url relativeString];
@@ -60,7 +61,7 @@ RCT_EXPORT_METHOD(pause:(RCTResponseSenderBlock)callback)
             NSDictionary *props = @{@"url": url, @"thumbnail":thumbnail, @"duration":@(duration)};
             callback(@[props]);
         }
-    
+
     }];
 }
 

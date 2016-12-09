@@ -64,6 +64,11 @@ The filters are applied on the saved video
 Values: "front" or "back"
 Specify wihich camera to use
 
+#### `flashMode`
+Values: "SCFlashModeOff", "SCFlashModeOn", "SCFlashModeAuto", "SCFlashModeLight"
+(Access constants as Recorder.constants.SCFlashModeOn, etc...)
+SCFlashModeLight is "TorchMode", all others are self explanatory
+
 #### `onNewSegment`
 
 Will call the specified method when a new segment has been recorded
