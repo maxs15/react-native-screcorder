@@ -1,6 +1,6 @@
 {
   "name": "react-native-screcorder",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A Video recorder component for react-native",
   "main": "recorder.ios.js",
   "keywords": [
