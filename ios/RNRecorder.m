@@ -1,8 +1,8 @@
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 #import "RNRecorder.h"
 #import "RNRecorderManager.h"
-#import "RCTLog.h"
-#import "RCTUtils.h"
+#import <React/RCTLog.h>
+#import <React/RCTUtils.h>
 
 #import <AVFoundation/AVFoundation.h>
 
